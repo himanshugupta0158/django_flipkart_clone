@@ -1,0 +1,64 @@
+<style>
+  /* Import the Rubik font (optional, adjust URL if needed) */
+  @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap");
+
+  .flipkart-logo {
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.05em; /* Adjust spacing to match the logo */
+    /* color: #2874f0; Flipkart blue color */
+  }
+</style>
+
+<nav class="flex items-center justify-between px-10 py-2">
+  <div class="flex items-center flex-col">
+    <a
+      class="text-2xl font-bold flipkart-logo italic {% if authenticated %} text-white {% else %} text-blue-700 {% endif %}"
+      href="{% url 'home' %}"
+      >Flipkart</a
+    >
+    <p class="text-sm text-start">
+      <i
+        class="{% if authenticated %} text-white {% else %} text-gray-400 {% endif %}font-bold"
+        >Explore</i
+      >
+      <i class="text-yellow-400 font-bold">Plus</i>
+    </p>
+  </div>
+
+  <div class="inline-flex space-x-4">
+    <div class="w-full max-w-sm">
+      <input
+        type="text"
+        placeholder="Search..."
+        class="appearance-none rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      />
+    </div>
+
+    {% if authenticated %}
+
+    <a
+      href="#"
+      class="px-3 py-2 font-semibold rounded-md text-blue-600 bg-white hover:text-blue-700"
+      >Logout</a
+    >
+
+    {% else %}
+
+    <a href="#" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
+      >Login</a
+    >
+    <a href="#" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
+      >Signup</a
+    >
+    {% endif %}
+
+    <a href="#" class="relative px-3 py-2 rounded-md">
+      <i class="fa-solid fa-cart-shopping text-xl"></i>
+      <span
+        class="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-xs font-bold text-white"
+        >0</span
+      >
+    </a>
+  </div>
+</nav>

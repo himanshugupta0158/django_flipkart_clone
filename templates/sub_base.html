@@ -1,0 +1,17 @@
+{% include "base.html" %}
+
+{% block sub_base_code %}
+
+<div class="{% if user.is_authenticated %} bg-blue-600 {% else %} bg-white {% endif %} px-4 py-0">
+    {% include "navbar.html" with authenticated=user.is_authenticated %}
+</div>
+<div class="bg-white mx-20 py-0 my-2">
+    {% include "subnavbar.html" with authenticated=user.is_authenticated %}
+</div>
+
+<div class="mx-20 bg-white">
+    {% block content %}{% endblock %}
+</div>
+
+  
+{% endblock sub_base_code %}

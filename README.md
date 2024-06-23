@@ -68,3 +68,8 @@ DEBUG=True
 ALLOWED_HOSTS=localhost, 127.0.0.1
 DATABASE_URL=postgres://your_db_user:your_db_password@localhost:5432/your_db_name
 STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+
+## Tailwind CSS Integration with Django
+
+To integrate Tailwind CSS with Django, you can use the `django-tailwind` package. Follow the installation instructions [here](https://django-tailwind.readthedocs.io/en/latest/installation.html).
