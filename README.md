@@ -50,9 +50,15 @@ FlipkartClone is a fully functional e-commerce web application built with Django
     ```
 
 6. **Run the development server**
+- on one terminal : 
     ```sh
     python manage.py runserver
     ```
+- on 2nd terminal :
+    ```sh
+    python manage.py tailwind start
+    ```
+
 
 7. **Access the application**
     - Open your web browser and go to `http://127.0.0.1:8000/`
