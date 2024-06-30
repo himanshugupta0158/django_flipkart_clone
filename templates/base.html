@@ -10,9 +10,19 @@
 </head>
 <body class="bg-slate-100">
 
-  {% block sub_base_code %}
-    
-  {% endblock sub_base_code %}
-    
+<div class="{% if user.is_authenticated %} bg-blue-600 {% else %} bg-white {% endif %} px-4 py-0">
+  {% include "components/navbar.html" with authenticated=user.is_authenticated %}
+</div>
+
+{% block sub_base_code %}
+
+{% endblock sub_base_code %}
+
+
+{% comment %} <!-- 
+<footer class="bg-gray-100 px-4 py-12">
+    {% include "components/bottom_content.html" %}
+</footer> --> {% endcomment %}
+
 </body>
 </html>
