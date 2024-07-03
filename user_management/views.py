@@ -19,4 +19,8 @@ def user_login(request):
     # else:
         # form = LoginForm()
     # return render(request, 'user_management/login.html', {'form': form})
-    return render(request, 'user_management/login.html')
+    return render(request, 'user_management/authenticate.html')
+
+
+def register(request):
+    return render(request, 'user_management/authenticate.html')
