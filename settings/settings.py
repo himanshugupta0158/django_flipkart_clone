@@ -141,3 +141,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_URL = '/user_management/login/'
+LOGOUT_REDIRECT_URL = '/user_management/login/'

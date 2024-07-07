@@ -15,14 +15,18 @@
     <a
       class="text-2xl font-bold flipkart-logo italic {% if authenticated %} text-white {% else %} text-blue-700 {% endif %}"
       href="{% url 'home' %}"
-      >Flipkart</a
+      >ShopEase</a
     >
     <p class="text-sm text-start">
       <i
         class="{% if authenticated %} text-white {% else %} text-gray-400 {% endif %}font-bold"
-        >Explore</i
+        >Your one-stop</i
       >
-      <i class="text-yellow-400 font-bold">Plus</i>
+      <i class="text-yellow-400 font-bold">e-commerce</i>
+      <i
+        class="{% if authenticated %} text-white {% else %} text-gray-400 {% endif %}font-bold"
+        >shop!</i
+      >
     </p>
   </div>
 
@@ -36,23 +40,6 @@
     </div>
 
     {% if authenticated %}
-
-    <a
-      href="#"
-      class="px-3 py-2 font-semibold rounded-md text-blue-600 bg-white hover:text-blue-700"
-      >Logout</a
-    >
-
-    {% else %}
-
-    <a href="{% url 'login' %}" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
-      >Login</a
-    >
-    <a href="#" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
-      >Signup</a
-    >
-    {% endif %}
-
     <a href="#" class="relative px-3 py-2 rounded-md">
       <i class="fa-solid fa-cart-shopping text-xl"></i>
       <span
@@ -60,5 +47,55 @@
         >0</span
       >
     </a>
+
+    <div class="relative inline-block text-left">
+      <button id="user-menu-button" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+          <!-- User initials or icon -->
+          <span class="text-gray-900 text-lg font-semibold">{{ user.username|slice:":2"|upper }}</span>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
+          <!-- User greeting -->
+          <div class="px-4 py-2 text-sm text-gray-700">
+              Hi, <span class="font-semibold">{{ user.username }}</span>
+          </div>
+          <hr>
+          <!-- Menu items -->
+          <div class="py-2" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+              <a href="{% url 'user_profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+              <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
+          </div>
+      </div>
+  </div>
+  
+    {% else %}
+
+    <a href="{% url 'login' %}" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
+      >Login</a
+    >
+    <a href="{% url 'register' %}" class="px-3 py-2 rounded-md hover:bg-blue-700 hover:text-white"
+      >Signup</a
+    >
+    {% endif %}
+
   </div>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var userMenuButton = document.getElementById('user-menu-button');
+      var userMenu = document.getElementById('user-menu');
+
+      userMenuButton.addEventListener('click', function () {
+          userMenu.classList.toggle('hidden');
+      });
+
+      // Close the dropdown if clicked outside
+      document.addEventListener('click', function (event) {
+          if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+              userMenu.classList.add('hidden');
+          }
+      });
+  });
+</script>
