@@ -1,145 +1,476 @@
 {% include "base.html" %}
 
 <div class="flex items-center justify-center my-28 bg-gray-100">
-    <div class="flex w-full bg-slate-100 rounded-lg overflow-hidden">
-        <!-- Logo Section -->
-        <div class="logo-container p-10 flex items-center justify-center w-1/2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="500" height="300">
-                <!-- Trolley -->
-                <g transform="translate(50, 50)">
-                    <rect x="0" y="0" width="100" height="60" fill="#2196F3" rx="10" ry="10" />
-                    <path d="M10 10 h80 l10 50 h-100 z" fill="white" stroke="#1976D2" stroke-width="2" />
-                    <circle cx="15" cy="70" r="7" fill="#2196F3" stroke="#1976D2" stroke-width="2" />
-                    <circle cx="85" cy="70" r="7" fill="#2196F3" stroke="#1976D2" stroke-width="2" />
-                </g>
-                <!-- Text -->
-                <text x="200" y="100" font-family="Arial, Helvetica, sans-serif" font-size="50" fill="#2196F3" text-anchor="middle">
-                    ShopEase
-                </text>
-                <text x="200" y="150" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#2196F3" text-anchor="middle">
-                    Your one-stop e-commerce shop!
-                </text>
-            </svg>
-        </div>
-        
-
-        <!-- Form Section -->
-        <div class="form-container p-10 flex-1 shadow-lg max-w-2xl bg-white">
-            <!-- Messages -->
-            {% if messages %}
-            <div class="mb-4">
-                {% for message in messages %}
-                    <div class="p-2 mb-2 rounded {{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="relative mb-4">
-                <div class="flex justify-center">
-                    <div class="flex shadow-sm relative">
-                        <button id="login-tab" class="w-1/2 py-2 px-3 text-center font-bold text-white bg-blue-500 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-10" data-mode="login">
-                            Login
-                        </button>
-                        <button id="register-tab" class="w-1/2 py-2 px-4 text-center font-bold text-blue-500 bg-white rounded-r-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-10" data-mode="register">
-                            Register&nbsp;&nbsp;&nbsp;&nbsp;
-                        </button>
-                        <div id="toggle-slider" class="absolute top-0 left-0 h-10 w-1/2 bg-blue-500 rounded-lg transition-transform z-0"></div>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="text-2xl font-bold text-center mb-4 text-blue-500" id="form-title">{% if form_mode == 'login' %}Login to Your Account{% else %}Create a New Account{% endif %}</h2>
-
-            <!-- Login Form -->
-            <form id="login-form" action="{% url 'login' %}" method="post" class="space-y-4 {% if form_mode == 'register' %}hidden{% endif %}">
-                {% csrf_token %}
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="remember_me" name="remember_me" class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
-                    </div>
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-blue-500 hover:text-blue-600">Forgot your password?</a>
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Login
-                </button>
-            </form>
-
-            <!-- Register Form -->
-            <form id="register-form" action="{% url 'register' %}" method="post" class="space-y-4 {% if form_mode == 'login' %}hidden{% endif %}">
-                {% csrf_token %}
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    Register
-                </button>
-            </form>
-        </div>
+  <div class="flex w-full bg-slate-100 rounded-lg overflow-hidden">
+    <!-- Logo Section -->
+    <div class="logo-container p-10 flex items-center justify-center w-1/2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 400 200"
+        width="500"
+        height="300"
+      >
+        <!-- Trolley -->
+        <g transform="translate(50, 50)">
+          <rect
+            x="0"
+            y="0"
+            width="100"
+            height="60"
+            fill="#2196F3"
+            rx="10"
+            ry="10"
+          />
+          <path
+            d="M10 10 h80 l10 50 h-100 z"
+            fill="white"
+            stroke="#1976D2"
+            stroke-width="2"
+          />
+          <circle
+            cx="15"
+            cy="70"
+            r="7"
+            fill="#2196F3"
+            stroke="#1976D2"
+            stroke-width="2"
+          />
+          <circle
+            cx="85"
+            cy="70"
+            r="7"
+            fill="#2196F3"
+            stroke="#1976D2"
+            stroke-width="2"
+          />
+        </g>
+        <!-- Text -->
+        <text
+          x="200"
+          y="100"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="50"
+          fill="#2196F3"
+          text-anchor="middle"
+        >
+          ShopEase
+        </text>
+        <text
+          x="200"
+          y="150"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="20"
+          fill="#2196F3"
+          text-anchor="middle"
+        >
+          Your one-stop e-commerce shop!
+        </text>
+      </svg>
     </div>
+
+    <!-- Form Section -->
+    <div class="form-container p-10 flex-1 shadow-lg max-w-2xl bg-white">
+      <!-- Messages -->
+      {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+        <div class="p-2 mb-2 rounded {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="relative mb-4">
+        <div class="flex justify-center">
+          <div class="flex shadow-sm relative">
+            <button
+              id="login-tab"
+              class="w-1/2 py-2 px-3 text-center font-bold text-white bg-blue-500 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-10"
+              data-mode="login"
+            >
+              Login
+            </button>
+            <button
+              id="register-tab"
+              class="w-1/2 py-2 px-4 text-center font-bold text-blue-500 bg-white rounded-r-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-10"
+              data-mode="register"
+            >
+              Register&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            <div
+              id="toggle-slider"
+              class="absolute top-0 left-0 h-10 w-1/2 bg-blue-500 rounded-lg transition-transform z-0"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <h2
+        class="text-2xl font-bold text-center mb-4 text-blue-500"
+        id="form-title"
+      >
+        {% if form_mode == 'login' %}Login to Your Account{% else %}Create a New
+        Account{% endif %}
+      </h2>
+
+      <!-- Login Form -->
+      <form
+        id="login-form"
+        action="{% url 'login' %}"
+        method="post"
+        class="space-y-4 {% if form_mode == 'register' %}hidden{% endif %}"
+      >
+        {% csrf_token %}
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700"
+            >Username</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="remember_me"
+              name="remember_me"
+              class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label for="remember_me" class="ml-2 block text-sm text-gray-900"
+              >Remember me</label
+            >
+          </div>
+          <div class="text-sm">
+            <a href="#" class="font-medium text-blue-500 hover:text-blue-600"
+              >Forgot your password?</a
+            >
+          </div>
+        </div>
+        <div class="text-center items-center">
+          <button
+            type="submit"
+            class="w-28 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form
+        id="register-form"
+        action="{% url 'register' %}"
+        method="post"
+        class="space-y-4"
+      >
+        {% csrf_token %}
+        <!-- Step 1: Basic Information -->
+        <div id="step-1" class="form-step">
+          <label
+            class="block text-xl text-center my-4 mx-4 font-medium text-gray-500"
+            >Step 1 of 3</label
+          >
+          <div>
+            <label
+              for="first_name"
+              class="block text-sm font-medium text-gray-700"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="last_name"
+              class="block text-sm font-medium text-gray-700"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div class="my-4 text-center items-center">
+            <button
+              type="button"
+              id="next-step-1"
+              class="w-28 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Additional Information -->
+        <div id="step-2" class="form-step hidden">
+          <label
+            class="block text-xl text-center my-4 mx-4 font-medium text-gray-500"
+            >Step 2 of 3</label
+          >
+          <div>
+            <label for="phone1" class="block text-sm font-medium text-gray-700"
+              >Phone Number</label
+            >
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label for="address" class="block text-sm font-medium text-gray-700"
+              >Address</label
+            >
+            <input
+              type="text"
+              id="address"
+              name="address"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label
+              for="birth_date"
+              class="block text-sm font-medium text-gray-700"
+              >Birth Date</label
+            >
+            <input
+              type="date"
+              id="birth_date"
+              name="birth_date"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div class="my-4 text-center">
+            <button
+              type="button"
+              id="prev-step-2"
+              class="w-28 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+            >
+              Previous
+            </button>
+            <button
+              type="button"
+              id="next-step-2"
+              class="w-28 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Account Information -->
+        <div id="step-3" class="form-step hidden">
+          <label
+            class="block text-xl text-center my-4 mx-4 font-medium text-gray-500"
+            >Step 3 of 3</label
+          >
+          <div>
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-700"
+              >Username</label
+            >
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div class="my-4 text-center">
+            <button
+              type="button"
+              id="prev-step-3"
+              class="w-28 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+            >
+              Previous
+            </button>
+            <button
+              type="submit"
+              class="w-28 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 {% include "components/footer.html" %}
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var initialMode = '{{ form_mode }}';
+  document.addEventListener("DOMContentLoaded", function () {
+    var initialMode = "{{ form_mode }}";
     switchForm(initialMode);
 
-    document.getElementById('login-tab').addEventListener('click', function() {
-        switchForm('login');
+    document.getElementById("login-tab").addEventListener("click", function () {
+      switchForm("login");
     });
-    document.getElementById('register-tab').addEventListener('click', function() {
-        switchForm('register');
-    });
+    document
+      .getElementById("register-tab")
+      .addEventListener("click", function () {
+        switchForm("register");
+      });
 
     function switchForm(mode) {
-        var loginForm = document.getElementById('login-form');
-        var registerForm = document.getElementById('register-form');
-        var formTitle = document.getElementById('form-title');
-        var loginTab = document.getElementById('login-tab');
-        var registerTab = document.getElementById('register-tab');
-        var toggleSlider = document.getElementById('toggle-slider');
+      var loginForm = document.getElementById("login-form");
+      var registerForm = document.getElementById("register-form");
+      var formTitle = document.getElementById("form-title");
+      var loginTab = document.getElementById("login-tab");
+      var registerTab = document.getElementById("register-tab");
+      var toggleSlider = document.getElementById("toggle-slider");
 
-        if (mode === 'login') {
-            loginForm.classList.remove('hidden');
-            registerForm.classList.add('hidden');
-            formTitle.textContent = 'Login to Your Account';
-            loginTab.classList.add('bg-blue-500', 'text-white');
-            loginTab.classList.remove('bg-white', 'text-blue-500');
-            registerTab.classList.add('bg-white', 'text-blue-500');
-            registerTab.classList.remove('bg-blue-500', 'text-white');
-            toggleSlider.style.transform = 'translateX(0)';
-        } else {
-            loginForm.classList.add('hidden');
-            registerForm.classList.remove('hidden');
-            formTitle.textContent = 'Create a New Account';
-            registerTab.classList.add('bg-blue-500', 'text-white');
-            registerTab.classList.remove('bg-white', 'text-blue-500');
-            loginTab.classList.add('bg-white', 'text-blue-500');
-            loginTab.classList.remove('bg-blue-500', 'text-white');
-            toggleSlider.style.transform = 'translateX(100%)';
-        }
+      if (mode === "login") {
+        loginForm.classList.remove("hidden");
+        registerForm.classList.add("hidden");
+        formTitle.textContent = "Login to Your Account";
+        loginTab.classList.add("bg-blue-500", "text-white");
+        loginTab.classList.remove("bg-white", "text-blue-500");
+        registerTab.classList.add("bg-white", "text-blue-500");
+        registerTab.classList.remove("bg-blue-500", "text-white");
+        toggleSlider.style.transform = "translateX(0)";
+      } else {
+        loginForm.classList.add("hidden");
+        registerForm.classList.remove("hidden");
+        formTitle.textContent = "Create a New Account";
+        registerTab.classList.add("bg-blue-500", "text-white");
+        registerTab.classList.remove("bg-white", "text-blue-500");
+        loginTab.classList.add("bg-white", "text-blue-500");
+        loginTab.classList.remove("bg-blue-500", "text-white");
+        toggleSlider.style.transform = "translateX(100%)";
+      }
     }
-});
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    const steps = [
+      document.getElementById("step-1"),
+      document.getElementById("step-2"),
+      document.getElementById("step-3"),
+    ];
+    const nextStep1Button = document.getElementById("next-step-1");
+    const nextStep2Button = document.getElementById("next-step-2");
+    const prevStep2Button = document.getElementById("prev-step-2");
+    const prevStep3Button = document.getElementById("prev-step-3");
+    let currentStep = 0;
+
+    function validateStep(step) {
+      const inputs = steps[step].querySelectorAll("input[required]");
+      let isValid = true;
+
+      inputs.forEach((input) => {
+        if (!input.value) {
+          input.classList.add("border-red-500");
+          isValid = false;
+        } else {
+          input.classList.remove("border-red-500");
+        }
+      });
+
+      return isValid;
+    }
+
+    function changeStep(step) {
+      if (step >= currentStep && !validateStep(currentStep)) {
+        showError("Please fill out all required fields.");
+        return;
+      } else {
+        let errorBox = document.getElementById("error-box");
+        if (errorBox) {
+          document.getElementById("error-box").remove();
+        }
+      }
+
+      steps[currentStep].classList.add("hidden");
+      steps[step].classList.remove("hidden");
+      currentStep = step;
+    }
+
+    function showError(message) {
+      let errorBox = document.getElementById("error-box");
+
+      if (!errorBox) {
+        errorBox = document.createElement("div");
+        errorBox.id = "error-box";
+        errorBox.className =
+          "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative";
+        const errorText = document.createElement("span");
+        errorText.className = "block sm:inline";
+        errorText.innerText = message;
+        errorBox.appendChild(errorText);
+        document.getElementById("register-form").prepend(errorBox);
+      } else {
+        errorBox.querySelector("span").innerText = message;
+      }
+    }
+
+    nextStep1Button.addEventListener("click", function () {
+      changeStep(currentStep + 1);
+    });
+
+    nextStep2Button.addEventListener("click", function () {
+      changeStep(currentStep + 1);
+    });
+
+    prevStep2Button.addEventListener("click", function () {
+      changeStep(currentStep - 1);
+    });
+
+    prevStep3Button.addEventListener("click", function () {
+      changeStep(currentStep - 1);
+    });
+  });
 </script>
