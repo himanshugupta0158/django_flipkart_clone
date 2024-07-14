@@ -1,0 +1,113 @@
+{% include "base.html" %}
+
+<div class="container mx-auto mt-10">
+  <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg p-6">
+    <!-- Account Info Section -->
+    <div class="w-full md:w-1/3 p-4 border-r">
+      <div class="flex flex-col items-center">
+        <!-- Profile Picture -->
+        <img src="https://avatars.githubusercontent.com/u/93569997?v=4" alt="Profile Picture" class="w-32 h-32 rounded-full mb-4 hover:opacity-75 transition duration-300">
+        
+        <!-- User Information -->
+        <h2 class="text-xl font-semibold">{{user.username}}</h2>
+        <p class="text-gray-600">{{user.email}}</p>
+        
+        <!-- Account Links -->
+        <div class="mt-6 w-full">
+          <a href="{% url 'user_profile' %}" class="block py-2 px-4 hover:bg-gray-100 rounded-lg transition duration-300">Edit Profile</a>
+          <a href="#" class="block py-2 px-4 hover:bg-gray-100 rounded-lg transition duration-300">Change Password</a>
+          <a href="#" class="block py-2 px-4 hover:bg-gray-100 rounded-lg transition duration-300">Privacy Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Components Section -->
+    <div class="w-full md:w-2/3 p-4">
+      <!-- Notifications -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2 flex justify-between items-center cursor-pointer" onclick="toggleSection('notifications')">
+          Notifications 
+          <i id="notifications-icon" class="fas fa-chevron-down"></i>
+        </h3>
+        <ul id="notifications" class="hidden">
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">New message from support</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Your order has been shipped</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Special offer just for you</li>
+        </ul>
+        <a href="#" class="text-blue-500 hover:underline">View All Notifications</a>
+      </div>
+      
+      <!-- Cart -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2 flex justify-between items-center cursor-pointer" onclick="toggleSection('cart')">
+          Cart 
+          <i id="cart-icon" class="fas fa-chevron-down"></i>
+        </h3>
+        <p>You have 3 items in your cart.</p>
+        <a href="#" class="text-blue-500 hover:underline">View Cart</a>
+      </div>
+      
+      <!-- Orders -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2 flex justify-between items-center cursor-pointer" onclick="toggleSection('orders')">
+          My Orders 
+          <i id="orders-icon" class="fas fa-chevron-down"></i>
+        </h3>
+        <ul id="orders" class="hidden">
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Order #12345 - Delivered</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Order #12346 - In Transit</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Order #12347 - Pending</li>
+        </ul>
+        <a href="#" class="text-blue-500 hover:underline">View All Orders</a>
+      </div>
+
+       <!-- Support -->
+       <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2 flex justify-between items-center cursor-pointer" onclick="toggleSection('support')">
+          Support 
+          <i id="support-icon" class="fas fa-chevron-down"></i>
+        </h3>
+        <ul id="support" class="hidden">
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">FAQ</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Contact Us</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Live Chat</li>
+        </ul>
+      </div>
+      
+      <!-- Additional Components -->
+      <div>
+        <h3 class="text-lg font-semibold mb-2 flex justify-between items-center cursor-pointer" onclick="toggleSection('more-options')">
+          More Options 
+          <i id="more-options-icon" class="fas fa-chevron-down"></i>
+        </h3>
+        <ul id="more-options" class="hidden">
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Wishlist</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Saved Items</li>
+          <li class="py-2 border-b hover:bg-gray-50 transition duration-300">Recently Viewed</li>
+        </ul>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div class="top-0">
+    {% include "components/footer.html" %}
+  </div>
+</div>
+
+<script>
+  function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const icon = document.getElementById(`${sectionId}-icon`);
+    if (section.classList.contains('hidden')) {
+      section.classList.remove('hidden');
+      icon.classList.remove('fa-chevron-down');
+      icon.classList.add('fa-chevron-up');
+    } else {
+      section.classList.add('hidden');
+      icon.classList.remove('fa-chevron-up');
+      icon.classList.add('fa-chevron-down');
+    }
+  }
+</script>

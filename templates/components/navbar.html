@@ -57,7 +57,7 @@
     <div class="relative inline-block text-left">
       <button id="user-menu-button" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <!-- User initials or icon -->
-          <span class="text-gray-900 text-lg font-semibold">{{ user.username|slice:":2"|upper }}</span>
+          <span class="text-gray-900 text-lg font-semibold">{{ user.first_name|slice:":1"|upper }}{{user.last_name|slice:":1"|upper}}</span>
       </button>
       <!-- Dropdown menu -->
       <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
@@ -69,7 +69,7 @@
           <!-- Menu items -->
           <div class="py-2" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
               <a href="{% url 'user_profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Account</a>
+              <a href="{% url 'account' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Account</a>
               <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Logout</a>
           </div>
       </div>

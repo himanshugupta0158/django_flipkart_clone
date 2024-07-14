@@ -1,52 +1,258 @@
 {% include "base.html" %}
 
 <div class="max-w-7xl mx-auto bg-white p-6 my-8 shadow-md rounded-md">
-    <h2 class="text-2xl font-bold mb-4">User Profile</h2>
+  <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">
+    User Profile
+  </h2>
 
-    <form method="post" action="{% url 'user_profile' %}">
-        {% csrf_token %}
+  <div id="view-mode" class="space-y-6">
+    <div class="text-center">
+      {% if user_data.profile_pic %}
+        <img
+          src="{{ user_data.profile_pic }}"
+          alt="Profile Picture"
+          class="w-24 h-24 rounded-full mx-auto"
+        />
+      {% else %}
+        <div
+          class="w-24 h-24 rounded-full bg-blue-500 text-white flex items-center justify-center text-2xl font-bold mx-auto"
+        >
+          {{ user_data.first_name|first|upper }}{{ user_data.last_name|first|upper }}
+        </div>
+      {% endif %}
+    </div>
+
     <div class="grid grid-cols-2 gap-6">
-        <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-            <input type="text" id="username" name="username" value="{{ user_data.username }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-            <input type="text" id="first_name" name="first_name" value="{{ user_data.first_name }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-            <input type="text" id="last_name" name="last_name" value="{{ user_data.last_name }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="email" name="email" value="{{ user_data.email }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="phone1" class="block text-sm font-medium text-gray-700">Phone Number 1</label>
-            <input type="text" id="phone1" name="phone1" value="{{ user_data.phone_number1 }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="phone2" class="block text-sm font-medium text-gray-700">Phone Number 2</label>
-            <input type="text" id="phone2" name="phone2" value="{{ user_data.phone_number2 }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-            <input type="text" id="address" name="address" value="{{ user_data.address }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div>
-            <label for="birth_date" class="block text-sm font-medium text-gray-700">Birth Date</label>
-            <input type="date" id="birth_date" name="birth_date" value="{{ user_data.birth_date|date:'Y-m-d' }}" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">
-        </div>
-        <div class="col-span-2">
-            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
-            <textarea id="bio" name="bio" rows="3" class="mt-1 block w-full px-3 py-2 rounded-md bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500">{{ user_data.bio }}</textarea>
-        </div>
-        
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Username</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.username }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">First Name</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.first_name }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Last Name</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.last_name }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Email</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.email }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Phone Number 1</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.phone_number1 }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Phone Number 2</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.phone_number2 }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Address</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.address }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700">Birth Date</h3>
+        <p class="bg-gray-100 p-2 rounded-md">
+          {{ user_data.birth_date|date:'Y-m-d' }}
+        </p>
+      </div>
+      <div class="col-span-2">
+        <h3 class="text-lg font-semibold text-gray-700">Bio</h3>
+        <p class="bg-gray-100 p-2 rounded-md">{{ user_data.bio }}</p>
+      </div>
     </div>
+    <div class="text-center mt-6">
+      <button
+        id="edit-button"
+        class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
 
-    <div class="mt-6">
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Update Profile</button>
+  <form
+    id="edit-mode"
+    method="post"
+    action="{% url 'user_profile' %}"
+    class="hidden space-y-6"
+  >
+    {% csrf_token %}
+  <div class="text-center">
+    <label for="profile_pic" class="cursor-pointer">
+        <img
+          src="{{ user_data.profile_pic }}"
+          class="w-24 h-24 rounded-full mx-auto"
+        />
+      <input
+        type="file"
+        id="profile_pic"
+        name="profile_pic"
+        accept="image/*"
+        class="hidden"
+        onchange="previewImage(event)"
+      />
+    </label>
+  </div>
+
+    <div class="grid grid-cols-2 gap-6">
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700"
+          >Username</label
+        >
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="{{ user_data.username }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="first_name" class="block text-sm font-medium text-gray-700"
+          >First Name</label
+        >
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          value="{{ user_data.first_name }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="last_name" class="block text-sm font-medium text-gray-700"
+          >Last Name</label
+        >
+        <input
+          type="text"
+          id="last_name"
+          name="last_name"
+          value="{{ user_data.last_name }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="{{ user_data.email }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="phone1" class="block text-sm font-medium text-gray-700"
+          >Phone Number 1</label
+        >
+        <input
+          type="text"
+          id="phone1"
+          name="phone1"
+          value="{{ user_data.phone_number1 }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="phone2" class="block text-sm font-medium text-gray-700"
+          >Phone Number 2</label
+        >
+        <input
+          type="text"
+          id="phone2"
+          name="phone2"
+          value="{{ user_data.phone_number2 }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700"
+          >Address</label
+        >
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value="{{ user_data.address }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div>
+        <label for="birth_date" class="block text-sm font-medium text-gray-700"
+          >Birth Date</label
+        >
+        <input
+          type="date"
+          id="birth_date"
+          name="birth_date"
+          value="{{ user_data.birth_date|date:'Y-m-d' }}"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="col-span-2">
+        <label for="bio" class="block text-sm font-medium text-gray-700"
+          >Bio</label
+        >
+        <textarea
+          id="bio"
+          name="bio"
+          rows="3"
+          class="mt-1 block w-full px-3 py-2 rounded-md bg-white border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
+        >
+{{ user_data.bio }}</textarea
+        >
+      </div>
     </div>
-</form>
+    <div class="flex justify-center mt-6 space-x-4">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+      >
+        Update Profile
+      </button>
+      <button
+        type="button"
+        id="cancel-button"
+        class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>
+
+{% include "components/footer.html" %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editButton = document.getElementById("edit-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const viewMode = document.getElementById("view-mode");
+    const editMode = document.getElementById("edit-mode");
+
+    editButton.addEventListener("click", function () {
+      viewMode.classList.add("hidden");
+      editMode.classList.remove("hidden");
+    });
+
+    cancelButton.addEventListener("click", function () {
+      editMode.classList.add("hidden");
+      viewMode.classList.remove("hidden");
+    });
+  });
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.querySelector('#edit-mode img');
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+</script>

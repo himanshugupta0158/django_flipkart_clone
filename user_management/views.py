@@ -36,17 +36,34 @@ class RegisterView(View):
         return render(request, "user_management/authenticate.html", context)
 
     def post(self, request):
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        birth_date = request.POST.get("birth_date")
 
         print(f"username : {username} | email : {email} | password : {password}")
 
-        user = User.objects.create_user(username=username, email=email)
+        user = User.objects.create_user(
+            username=username, 
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+        )
         user.set_password(raw_password=password)
         user.save()
+
+        UserProfile.objects.create(
+            user=user,
+            phone_number1=phone,
+            address=address,
+            birth_date=birth_date
+        )
         login(request, user)
-        return render(request, "user_management/user_profile.html")
+        return redirect("user_profile")
 
 
 class LogoutView(View):
@@ -104,3 +121,8 @@ class UserProfileView(View):
         )
 
         return redirect("user_profile")
+
+
+class AccountView(View):
+    def get(self, request):
+        return render(request, "user_management/account.html")
